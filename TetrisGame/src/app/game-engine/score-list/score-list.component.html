@@ -1,0 +1,24 @@
+<div>
+  <span class="adMess">
+    <h3>Score list:</h3>
+    <select name="scoreFilterChoose" required [(ngModel)]="scoreFilterChoose">
+      <option
+        *ngFor="let scoreFilterChoose of avaibleScoreFilterChoose"
+        [value]="scoreFilterChoose"
+      >
+        {{ scoreFilterChoose }}
+      </option>
+    </select>
+  </span>
+
+  <span class="ad">
+    <p
+      *ngFor="
+        let playerScoreData of playerScoreData | scoreList: scoreFilterChoose;
+        index as idx
+      "
+    >
+      {{ playerScoreData.name }} : score {{ playerScoreData.score }}
+    </p>
+  </span>
+</div>
