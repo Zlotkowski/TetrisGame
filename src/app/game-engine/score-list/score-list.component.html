@@ -1,14 +1,16 @@
 <div>
   <span class="adMess">
     <h3>Score list:</h3>
-    <select name="scoreFilterChoose" required [(ngModel)]="scoreFilterChoose">
-      <option
-        *ngFor="let scoreFilterChoose of avaibleScoreFilterChoose"
-        [value]="scoreFilterChoose"
-      >
-        {{ scoreFilterChoose }}
-      </option>
+    <select
+      class="custom-select"
+      name="scoreFilterChoose"
+      required
+      [(ngModel)]="scoreFilterChoose"
+    >
+      <option value="Higest score">Higest score</option>
+      <option value="Lower score">Lower score</option>
     </select>
+    <p><input type="checkbox" [(ngModel)]="autoUpdateScores" />Auto Update</p>
   </span>
 
   <span class="ad">

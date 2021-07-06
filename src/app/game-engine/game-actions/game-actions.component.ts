@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { StorageService } from '../../storage.service';
 
 @Component({
   selector: 'app-game-actions',
   templateUrl: './game-actions.component.html',
-  styleUrls: ['./game-actions.component.css']
+  styleUrls: ['./game-actions.component.css'],
 })
-export class GameActionsComponent implements OnInit {
+export class GameActionsComponent {
+  public gameActionHistory = [];
+  public autoUpdateScories: boolean = true;
+  public scoreFilterChoose: string = 'Latest';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private _storage: StorageService) {
+    this.gameActionHistory = this._storage.passLog();
   }
 
+  ngOnInit(): void {}
 }

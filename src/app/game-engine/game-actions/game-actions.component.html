@@ -1,1 +1,26 @@
-<p>game-actions works!</p>
+<div>
+  <span class="adMess">
+    <h3>Action's list:</h3>
+    <select
+      class="custom-select"
+      name="scoreFilterChoose"
+      required
+      [(ngModel)]="scoreFilterChoose"
+    >
+      <option value="Latest">Latest</option>
+      <option value="Older">Older</option>
+    </select>
+    <p><input type="checkbox" [(ngModel)]="autoUpdateScories" />Auto Update</p>
+  </span>
+
+  <span class="ad">
+    <p
+      *ngFor="
+        let action of gameActionHistory | gameActions: scoreFilterChoose;
+        index as idx
+      "
+    >
+      {{ action.event }} : At time {{ action.time }}
+    </p>
+  </span>
+</div>

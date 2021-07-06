@@ -1,0 +1,26 @@
+.adMess {
+  float: left;
+  margin-left: 20px;
+  color: cornsilk;
+  width: auto;
+  height: px;
+}
+
+.ad {
+  float: left;
+  margin-left: 15%;
+  color: cornsilk;
+  width: 180px;
+  height: auto;
+  overflow: auto;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  background-color: #4caf50;
+  color: cornsilk;
+  border: 6px solid transparent;
+  height: auto;
+  width: 140px;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Player_Score } from 'src/app/definitions';
-import { PlayerScoreService } from '../../player-score.service';
+import { Players_Score } from 'src/app/definitions';
+import { ApiScoreService } from '../../api-score.service';
 
 @Component({
   selector: 'app-score-list',
@@ -8,13 +8,12 @@ import { PlayerScoreService } from '../../player-score.service';
   styleUrls: ['./score-list.component.css'],
 })
 export class ScoreListComponent implements OnInit {
-  public playerScoreData: Array<Player_Score>;
+  public playerScoreData: Array<Players_Score> = [];
+  public autoUpdateScores: boolean = true;
+  public scoreFilterChoose: string = 'Higest score';
 
-  avaibleScoreFilterChoose: Array<string> = ['Higest score', 'Lower score'];
-  scoreFilterChoose: string;
-
-  constructor(private PlayerScore: PlayerScoreService) {
-    this.PlayerScore.getPlayerScore().subscribe((result: Player_Score[]) => {
+  constructor(private PlayerScore: ApiScoreService) {
+    this.PlayerScore.getScores().subscribe((result: Players_Score[]) => {
       this.playerScoreData = result;
     });
   }

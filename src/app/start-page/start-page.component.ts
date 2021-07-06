@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from '../storage.service';
+import { ApiScoreService } from '../api-score.service';
 
 @Component({
   selector: 'app-start-page',
@@ -7,5 +9,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./start-page.component.css'],
 })
 export class StartPageComponent {
-  constructor() {}
+  constructor(
+    private _router: Router,
+    private _storage: StorageService,
+    private _scores: ApiScoreService
+  ) {}
+
+  postToken() {
+    this._scores.checkToken().subscribe((result) => {
+      console.log(result);
+    });
+  }
+
+  openGame(playerInfo: { name: string; id: string; color: string }) {
+    this._router.navigate(['/game-engine', playerInfo.color]);
+    this._storage.setUserInfo({
+      name: playerInfo.name,
+      id: playerInfo.id,
+      color: playerInfo.color,
+    });
+    this.postToken();
+  }
 }

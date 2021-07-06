@@ -1,18 +1,66 @@
-<div class="container">
-  <div class="head"><app-game-info></app-game-info></div>
+<div *ngIf="!isEndGame" class="container">
+  <div class="head">
+    <app-game-info
+      *ngIf="isGame"
+      [playerInfo]="{
+        name: playerInfo.name,
+        id: playerInfo.id,
+        score: points,
+        status: status,
+        gameTime: gameTime
+      }"
+    ></app-game-info>
+  </div>
 
   <div class="left">
     <app-game-instruction></app-game-instruction>
-
-    <app-game-actions></app-game-actions>
+    <app-game-actions
+      *ngIf="isGame"
+      [gameActionHistory]="{
+        event: gameActionHistory.event,
+        time: gameActionHistory.time
+      }"
+    ></app-game-actions>
   </div>
 
-  <div class="center"><app-controller></app-controller></div>
+  <div *ngIf="isGame" class="center">
+    <div class="containerBoard">
+      <tetris-core
+        #game
+        (lineCleared)="onLineCleared()"
+        (gameOver)="onGameOver()"
+        [ngClass]="coreClass"
+      ></tetris-core>
+    </div>
+  </div>
 
-  <div class="right"><app-score-list></app-score-list></div>
+  <div *ngIf="!isGame" class="center">
+    <div class="containerBoard">
+      <h1>
+        Hello {{ playerInfo.name }}! Please click start button and have fun!
+      </h1>
+      <button class="button" (click)="isGame = true"><span></span>START</button>
+    </div>
+  </div>
+
+  <div *ngIf="isGame" class="right"><app-score-list></app-score-list></div>
 
   <div class="bellow">
     <button class="button" (click)="changeClick()"><span></span>EXIT</button>
   </div>
   <div class="fotter"><app-follow-me></app-follow-me></div>
+</div>
+
+<div *ngIf="isEndGame" class="endGame">
+  <div>
+    <h1>Dear {{ playerInfo.name }} your's score is {{ points }}</h1>
+    <app-score-list></app-score-list>
+    <button class="button" (click)="changeClick()"><span></span>EXIT</button>
+    <button class="button" (click)="saveScore()">
+      <span></span>SAVE YOUR SCORE
+    </button>
+    <button class="button" (click)="isEndGame = false">
+      <span></span>TRY AGAIN
+    </button>
+  </div>
 </div>

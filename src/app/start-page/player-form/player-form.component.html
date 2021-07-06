@@ -1,35 +1,42 @@
-<div>
-  <form class="head" #form="ngForm" (submit)="submitForm(form.form)">
-    <label>Your name:</label>
-    <input
-      class="input"
-      ngModel
-      #name="ngModel"
-      name="name"
-      type="text"
-      required
-      minlength="3"
-    />
-    <div *ngIf="name.touched && name.valid === false">Incorrect name</div>
-
-    <br />
-
-    <label>Your email:</label>
-    <input
-      class="input"
-      ngModel
-      #email="ngModel"
-      name="email"
-      type="text"
-      required
-      email
-    />
-    <div *ngIf="email.touched && email.valid === false">Incorrect email</div>
-
-    <br />
-
-    <button class="button" type="submit" [disabled]="!form.valid">
-      Submit
-    </button>
-  </form>
-</div>
+<form class="head" [formGroup]="playerForm">
+  <label>Your name:</label>
+  <input
+    class="input"
+    type="text"
+    formControlName="playerName"
+    autocomplete="off"
+  />
+  <div *ngIf="!playerForm.controls.playerName?.valid">Wrong format</div>
+  <p></p>
+  <label>Student Id: </label>
+  <input
+    class="input"
+    type="number"
+    formControlName="playerId"
+    autocomplete="off"
+  />
+  <br />
+  <br />
+  <h2>Chose theme color:</h2>
+  <select formControlName="themeColor" id="colorSelect">
+    <option value="default">Default</option>
+    <option value="black-and-white">Dark</option>
+  </select>
+  <br />
+  <br />
+  <button
+    class="button"
+    type="button"
+    id="startButton"
+    (click)="
+      passPlayerData.emit({
+        name: playerForm.value.playerName,
+        id: playerForm.value.playerId,
+        color: playerForm.value.themeColor
+      })
+    "
+    [disabled]="!playerForm.valid"
+  >
+    Start
+  </button>
+</form>
